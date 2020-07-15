@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: predict-marks 
+  namespace: default
 spec:
   replicas: 1 
   template:
@@ -11,9 +12,14 @@ spec:
         image: tensorflow/tensorflow:latest-devel-py3
         command: ["/bin/sh", "-c"]
         args:
-         - git clone https://github.com/itayariel/imdb_keras;
-           cd imdb_keras;
-           pip install -r requirements.txt;
+         - echo "Start"
+           git clone https://github.com/sourabh-burnwal/eks_training;
+           cd eks_training;
+           pip install -y keras;
+           pip install -y flask;
+           pip install -y numpy;
+           pip install -y tensorflow;
            python server.py;
         ports:
         - containerPort: 8080 
+          protocol: TCP
