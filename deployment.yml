@@ -3,9 +3,17 @@ kind: Deployment
 metadata:
   name: predict-marks 
   namespace: default
+  labels:
+    app: predict-marks
 spec:
   replicas: 1 
+  selector:
+    matchLabels:
+      app: predict-marks
   template:
+    metadata:
+      labels:
+        app: imdb-server
     spec:
       containers:
       - name: app
